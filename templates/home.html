@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <center>
+    <h1>welcome To Post</h1>
+    </center>
+    {% if current_user.is_authenticated %}
+        <h3>user:{{current_user.name}}</h3>
+        <center>
+            <a href="/new_post">create new post</a><br>
+            <a href="/logout">logout</a>
+        </center>
+    {% else %}
+        <center>
+        <a href="/login">Already have an account</a><br>
+        <a href="/register">Don't have an account,create new!</a>
+        </center>
+    {% endif %}
+
+    <h2>All Posts</h2>
+    <hr>
+    {% for post in posts %}
+        <h4>{{ post.title }}</h4>
+        <p>{{ post.content }}</p>
+        <small>{{ post.user_id }}</small>
+        <a href="{{ url_for('update',post_id=post.id)}}">update</a>
+        <form action="/delete/{{post.id}}" method="post">
+            <button type="submit">delete</button>
+        </form>
+    <hr>
+    {% endfor %}
+
+
+
+</body>
+</html>
