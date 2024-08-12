@@ -111,6 +111,7 @@ def delete(id):
   id = db.get_or_404(Post,id)
   db.session.delete(id)
   db.session.commit()
+  flash("your post id deleted")
   return redirect(url_for("home"))
   
 @app.route("/update/<int:post_id>",methods = ["GET","POST"])
@@ -122,8 +123,9 @@ def update(post_id):
     id.title = title
     id.content = content
     db.session.commit()
+    flash("your post is updated")
     return redirect(url_for("home"))
-  return render_template("edit.html")
+  return render_template("edit.html",post = id)
 
 
   
